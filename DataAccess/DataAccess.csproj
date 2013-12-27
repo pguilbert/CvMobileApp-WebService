@@ -68,8 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\CompetenceGeneraleDAL.cs" />
     <Compile Include="DataAccess\CvDAL.cs" />
     <Compile Include="DataAccess\DALBase.cs" />
+    <Compile Include="Model\CompetenceGenerale.cs">
+      <DependentUpon>CvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Cv.cs">
       <DependentUpon>CvModel.tt</DependentUpon>
     </Compile>

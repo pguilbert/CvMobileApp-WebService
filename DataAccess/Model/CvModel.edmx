@@ -7,6 +7,11 @@
     <Schema Namespace="CvModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="CvModelStoreContainer">
     <EntitySet Name="Cvs" EntityType="CvModel.Store.Cvs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CompetencesGenerales" EntityType="CvModel.Store.CompetencesGenerales" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CvCompetenceGenerale" Association="CvModel.Store.CvCompetenceGenerale">
+      <End Role="Cv" EntitySet="Cvs" />
+      <End Role="CompetenceGenerale" EntitySet="CompetencesGenerales" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Cvs">
     <Key>
@@ -17,12 +22,39 @@
     <Property Name="Prenom" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Titre" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="CompetencesGenerales">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Categorie" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CvId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="CvCompetenceGenerale">
+    <End Role="Cv" Type="CvModel.Store.Cvs" Multiplicity="1" />
+    <End Role="CompetenceGenerale" Type="CvModel.Store.CompetencesGenerales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cv">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CompetenceGenerale">
+        <PropertyRef Name="CvId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CvModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="CvModelContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cvs" EntityType="CvModel.Cv" />
+          <EntitySet Name="CompetencesGenerales" EntityType="CvModel.CompetenceGenerale" />
+          <AssociationSet Name="CvCompetenceGenerale" Association="CvModel.CvCompetenceGenerale">
+            <End Role="Cv" EntitySet="Cvs" />
+            <End Role="CompetenceGenerale" EntitySet="CompetencesGenerales" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cv">
           <Key>
@@ -32,7 +64,31 @@
           <Property Name="Nom" Type="String" Nullable="false" />
           <Property Name="Prenom" Type="String" Nullable="false" />
           <Property Name="Titre" Type="String" Nullable="false" />
+          <NavigationProperty Name="CompetenceGenerales" Relationship="CvModel.CvCompetenceGenerale" FromRole="Cv" ToRole="CompetenceGenerale" />
         </EntityType>
+        <EntityType Name="CompetenceGenerale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Categorie" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Nom" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cv" Relationship="CvModel.CvCompetenceGenerale" FromRole="CompetenceGenerale" ToRole="Cv" />
+          <Property Name="CvId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CvCompetenceGenerale">
+          <End Type="CvModel.Cv" Role="Cv" Multiplicity="1" />
+          <End Type="CvModel.CompetenceGenerale" Role="CompetenceGenerale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cv">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompetenceGenerale">
+              <PropertyRef Name="CvId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -46,6 +102,17 @@
           <ScalarProperty Name="Nom" ColumnName="Nom" />
           <ScalarProperty Name="Prenom" ColumnName="Prenom" />
           <ScalarProperty Name="Titre" ColumnName="Titre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompetencesGenerales">
+      <EntityTypeMapping TypeName="IsTypeOf(CvModel.CompetenceGenerale)">
+        <MappingFragment StoreEntitySet="CompetencesGenerales">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CvId" ColumnName="CvId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
