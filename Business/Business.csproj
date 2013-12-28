@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="CompetenceGeneraleBusiness.cs" />
     <Compile Include="CvBusiness.cs" />
+    <Compile Include="FormationBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

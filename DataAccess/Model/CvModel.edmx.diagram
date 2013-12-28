@@ -4,10 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9d82ffe20d644ba8b07a2a7faac77709" Name="Diagram1" >
+      <Diagram DiagramId="9d82ffe20d644ba8b07a2a7faac77709" Name="Diagram1" ZoomLevel="86" >
         <EntityTypeShape EntityType="CvModel.Cv" Width="2.25" PointX="0.5" PointY="0.5" />
         <EntityTypeShape EntityType="CvModel.CompetenceGenerale" Width="2.125" PointX="4.5" PointY="0.625" />
         <AssociationConnector Association="CvModel.CvCompetenceGenerale" />
+        <EntityTypeShape EntityType="CvModel.Formation" Width="1.5" PointX="0.75" PointY="4" />
+        <AssociationConnector Association="CvModel.CvFormation" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

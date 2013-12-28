@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/27/2013 23:49:28
+-- Date Created: 12/28/2013 12:02:16
 -- Generated from EDMX file: D:\Documents\Travail-Documents\Dev\Projets\CvMobileApp\DataAccess\Model\CvModel.edmx
 -- --------------------------------------------------
 
@@ -50,7 +50,16 @@ CREATE TABLE [dbo].[CompetencesGenerales] (
     [Categorie] nvarchar(max)  NOT NULL,
     [Nom] nvarchar(max)  NOT NULL,
     [Description] nvarchar(max)  NOT NULL,
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CvId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Formations'
+CREATE TABLE [dbo].[Formations] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Periode] nvarchar(max)  NOT NULL,
+    [Libelle] nvarchar(max)  NOT NULL,
     [CvId] int  NOT NULL
 );
 GO
@@ -71,6 +80,12 @@ ADD CONSTRAINT [PK_CompetencesGenerales]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Formations'
+ALTER TABLE [dbo].[Formations]
+ADD CONSTRAINT [PK_Formations]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
@@ -86,6 +101,20 @@ ADD CONSTRAINT [FK_CvCompetenceGenerale]
 -- Creating non-clustered index for FOREIGN KEY 'FK_CvCompetenceGenerale'
 CREATE INDEX [IX_FK_CvCompetenceGenerale]
 ON [dbo].[CompetencesGenerales]
+    ([CvId]);
+GO
+
+-- Creating foreign key on [CvId] in table 'Formations'
+ALTER TABLE [dbo].[Formations]
+ADD CONSTRAINT [FK_CvFormation]
+    FOREIGN KEY ([CvId])
+    REFERENCES [dbo].[Cvs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CvFormation'
+CREATE INDEX [IX_FK_CvFormation]
+ON [dbo].[Formations]
     ([CvId]);
 GO
 

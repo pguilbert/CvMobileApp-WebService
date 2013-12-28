@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="CompetenceGenerale.cs" />
     <Compile Include="Cv.cs" />
+    <Compile Include="Formation.cs" />
     <Compile Include="Interfaces\IMapper.cs" />
     <Compile Include="Interfaces\IReader.cs" />
     <Compile Include="Interfaces\IReaderOnFilter.cs" />
