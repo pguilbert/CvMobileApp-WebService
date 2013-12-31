@@ -42,6 +42,7 @@
     <Compile Include="Interfaces\IMapper.cs" />
     <Compile Include="Interfaces\IReader.cs" />
     <Compile Include="Interfaces\IReaderOnFilter.cs" />
+    <Compile Include="Mission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

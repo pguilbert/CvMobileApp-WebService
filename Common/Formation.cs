@@ -11,6 +11,5 @@ namespace Common
         public int Id { get; set; }
         public string Periode { get; set; }
         public string Libelle { get; set; }
-        public virtual Cv Cv { get; set; }
     }
 }

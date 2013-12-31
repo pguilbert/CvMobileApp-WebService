@@ -42,6 +42,7 @@
     <Compile Include="CompetenceGeneraleMapper.cs" />
     <Compile Include="CvMapper.cs" />
     <Compile Include="FormationMapper.cs" />
+    <Compile Include="MissionMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

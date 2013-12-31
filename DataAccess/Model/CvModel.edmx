@@ -9,6 +9,9 @@
     <EntitySet Name="Cvs" EntityType="CvModel.Store.Cvs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CompetencesGenerales" EntityType="CvModel.Store.CompetencesGenerales" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Formations" EntityType="CvModel.Store.Formations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Missions" EntityType="CvModel.Store.Missions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Clients" EntityType="CvModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SSIIs" EntityType="CvModel.Store.SSIIs" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CvCompetenceGenerale" Association="CvModel.Store.CvCompetenceGenerale">
       <End Role="Cv" EntitySet="Cvs" />
       <End Role="CompetenceGenerale" EntitySet="CompetencesGenerales" />
@@ -16,6 +19,18 @@
     <AssociationSet Name="CvFormation" Association="CvModel.Store.CvFormation">
       <End Role="Cv" EntitySet="Cvs" />
       <End Role="Formation" EntitySet="Formations" />
+    </AssociationSet>
+    <AssociationSet Name="CvMission" Association="CvModel.Store.CvMission">
+      <End Role="Cv" EntitySet="Cvs" />
+      <End Role="Mission" EntitySet="Missions" />
+    </AssociationSet>
+    <AssociationSet Name="ClientMission" Association="CvModel.Store.ClientMission">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Mission" EntitySet="Missions" />
+    </AssociationSet>
+    <AssociationSet Name="SSIIMission" Association="CvModel.Store.SSIIMission">
+      <End Role="SSII" EntitySet="SSIIs" />
+      <End Role="Mission" EntitySet="Missions" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Cvs">
@@ -46,6 +61,40 @@
     <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CvId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Missions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Poste" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LibelleMission" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateDebut" Type="datetime" Nullable="false" />
+    <Property Name="DateFin" Type="datetime" Nullable="false" />
+    <Property Name="CvId" Type="int" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="SSIIId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SiteWeb" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ville" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SSIIs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Adresse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CodePostal" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ville" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SiteWeb" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <Association Name="CvCompetenceGenerale">
     <End Role="Cv" Type="CvModel.Store.Cvs" Multiplicity="1" />
     <End Role="CompetenceGenerale" Type="CvModel.Store.CompetencesGenerales" Multiplicity="*" />
@@ -70,6 +119,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="CvMission">
+    <End Role="Cv" Type="CvModel.Store.Cvs" Multiplicity="1" />
+    <End Role="Mission" Type="CvModel.Store.Missions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cv">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Mission">
+        <PropertyRef Name="CvId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientMission">
+    <End Role="Client" Type="CvModel.Store.Clients" Multiplicity="1" />
+    <End Role="Mission" Type="CvModel.Store.Missions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Mission">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SSIIMission">
+    <End Role="SSII" Type="CvModel.Store.SSIIs" Multiplicity="1" />
+    <End Role="Mission" Type="CvModel.Store.Missions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SSII">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Mission">
+        <PropertyRef Name="SSIIId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -86,6 +171,21 @@
             <End Role="Cv" EntitySet="Cvs" />
             <End Role="Formation" EntitySet="Formations" />
           </AssociationSet>
+          <EntitySet Name="Missions" EntityType="CvModel.Mission" />
+          <AssociationSet Name="CvMission" Association="CvModel.CvMission">
+            <End Role="Cv" EntitySet="Cvs" />
+            <End Role="Mission" EntitySet="Missions" />
+          </AssociationSet>
+          <EntitySet Name="Clients" EntityType="CvModel.Client" />
+          <AssociationSet Name="ClientMission" Association="CvModel.ClientMission">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Mission" EntitySet="Missions" />
+          </AssociationSet>
+          <EntitySet Name="SSIIs" EntityType="CvModel.SSII" />
+          <AssociationSet Name="SSIIMission" Association="CvModel.SSIIMission">
+            <End Role="SSII" EntitySet="SSIIs" />
+            <End Role="Mission" EntitySet="Missions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cv">
           <Key>
@@ -97,6 +197,7 @@
           <Property Name="Titre" Type="String" Nullable="false" />
           <NavigationProperty Name="CompetenceGenerales" Relationship="CvModel.CvCompetenceGenerale" FromRole="Cv" ToRole="CompetenceGenerale" />
           <NavigationProperty Name="Formations" Relationship="CvModel.CvFormation" FromRole="Cv" ToRole="Formation" />
+          <NavigationProperty Name="Missions" Relationship="CvModel.CvMission" FromRole="Cv" ToRole="Mission" />
         </EntityType>
         <EntityType Name="CompetenceGenerale">
           <Key>
@@ -143,6 +244,81 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Mission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Poste" Type="String" Nullable="false" />
+          <Property Name="LibelleMission" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="DateDebut" Type="DateTime" Nullable="false" />
+          <Property Name="DateFin" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Cv" Relationship="CvModel.CvMission" FromRole="Mission" ToRole="Cv" />
+          <Property Name="CvId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="CvModel.ClientMission" FromRole="Mission" ToRole="Client" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SSII" Relationship="CvModel.SSIIMission" FromRole="Mission" ToRole="SSII" />
+          <Property Name="SSIIId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CvMission">
+          <End Type="CvModel.Cv" Role="Cv" Multiplicity="1" />
+          <End Type="CvModel.Mission" Role="Mission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cv">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mission">
+              <PropertyRef Name="CvId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" Nullable="false" />
+          <Property Name="SiteWeb" Type="String" Nullable="false" />
+          <Property Name="Ville" Type="String" Nullable="false" />
+          <NavigationProperty Name="Missions" Relationship="CvModel.ClientMission" FromRole="Client" ToRole="Mission" />
+        </EntityType>
+        <Association Name="ClientMission">
+          <End Type="CvModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="CvModel.Mission" Role="Mission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mission">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SSII">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" Nullable="false" />
+          <Property Name="Adresse" Type="String" Nullable="false" />
+          <Property Name="CodePostal" Type="String" Nullable="false" />
+          <Property Name="Ville" Type="String" Nullable="false" />
+          <Property Name="SiteWeb" Type="String" Nullable="false" />
+          <NavigationProperty Name="Missions" Relationship="CvModel.SSIIMission" FromRole="SSII" ToRole="Mission" />
+        </EntityType>
+        <Association Name="SSIIMission">
+          <End Type="CvModel.SSII" Role="SSII" Multiplicity="1" />
+          <End Type="CvModel.Mission" Role="Mission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SSII">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mission">
+              <PropertyRef Name="SSIIId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -177,6 +353,43 @@
           <ScalarProperty Name="Periode" ColumnName="Periode" />
           <ScalarProperty Name="Libelle" ColumnName="Libelle" />
           <ScalarProperty Name="CvId" ColumnName="CvId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Missions">
+      <EntityTypeMapping TypeName="IsTypeOf(CvModel.Mission)">
+        <MappingFragment StoreEntitySet="Missions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Poste" ColumnName="Poste" />
+          <ScalarProperty Name="LibelleMission" ColumnName="LibelleMission" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="CvId" ColumnName="CvId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="SSIIId" ColumnName="SSIIId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="IsTypeOf(CvModel.Client)">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="SiteWeb" ColumnName="SiteWeb" />
+          <ScalarProperty Name="Ville" ColumnName="Ville" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SSIIs">
+      <EntityTypeMapping TypeName="IsTypeOf(CvModel.SSII)">
+        <MappingFragment StoreEntitySet="SSIIs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+          <ScalarProperty Name="Ville" ColumnName="Ville" />
+          <ScalarProperty Name="SiteWeb" ColumnName="SiteWeb" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

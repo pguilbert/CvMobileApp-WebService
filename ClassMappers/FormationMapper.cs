@@ -24,8 +24,7 @@ namespace ClassMappers
             {
                 Id = element.Id,
                 Periode = element.Periode,
-                Libelle = element.Libelle,
-                Cv = new CvMapper().ToDTO(element.Cv)
+                Libelle = element.Libelle
             };
         }
     }

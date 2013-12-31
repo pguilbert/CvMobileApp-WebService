@@ -18,6 +18,7 @@ namespace DataAccess.Model
         {
             this.CompetenceGenerales = new HashSet<CompetenceGenerale>();
             this.Formations = new HashSet<Formation>();
+            this.Missions = new HashSet<Mission>();
         }
     
         public int Id { get; set; }
@@ -27,5 +28,6 @@ namespace DataAccess.Model
     
         public virtual ICollection<CompetenceGenerale> CompetenceGenerales { get; set; }
         public virtual ICollection<Formation> Formations { get; set; }
+        public virtual ICollection<Mission> Missions { get; set; }
     }
 }

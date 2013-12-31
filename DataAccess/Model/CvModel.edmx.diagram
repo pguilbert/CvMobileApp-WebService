@@ -10,6 +10,12 @@
         <AssociationConnector Association="CvModel.CvCompetenceGenerale" />
         <EntityTypeShape EntityType="CvModel.Formation" Width="1.5" PointX="0.75" PointY="4" />
         <AssociationConnector Association="CvModel.CvFormation" />
+        <EntityTypeShape EntityType="CvModel.Mission" Width="1.5" PointX="4.5" PointY="3.125" IsExpanded="true" />
+        <AssociationConnector Association="CvModel.CvMission" />
+        <EntityTypeShape EntityType="CvModel.Client" Width="1.5" PointX="7.125" PointY="3.125" />
+        <AssociationConnector Association="CvModel.ClientMission" />
+        <EntityTypeShape EntityType="CvModel.SSII" Width="1.5" PointX="7.125" PointY="5.625" />
+        <AssociationConnector Association="CvModel.SSIIMission" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,7 +18,13 @@ namespace WCF.Services
         public IEnumerable<Cv> GetCvs()
         {
             IReader<Cv> bussiness = new CvBusiness();
-            return bussiness.Get();
+            IEnumerable<Cv> tmpCvs = bussiness.Get().ToList();
+            foreach (var tmpCv in tmpCvs)
+            {
+                tmpCv.Formations = this.GetFormations(tmpCv.Id);
+                tmpCv.Missions = this.GetMissions(tmpCv.Id);
+            }
+            return tmpCvs ;
         }
 
     }

@@ -72,6 +72,10 @@
     <Compile Include="DataAccess\CvDAL.cs" />
     <Compile Include="DataAccess\DALBase.cs" />
     <Compile Include="DataAccess\FormationDAL.cs" />
+    <Compile Include="DataAccess\MissionDAL.cs" />
+    <Compile Include="Model\Client.cs">
+      <DependentUpon>CvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\CompetenceGenerale.cs">
       <DependentUpon>CvModel.tt</DependentUpon>
     </Compile>
@@ -94,6 +98,12 @@
       <DependentUpon>CvModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\Formation.cs">
+      <DependentUpon>CvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Mission.cs">
+      <DependentUpon>CvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SSII.cs">
       <DependentUpon>CvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
