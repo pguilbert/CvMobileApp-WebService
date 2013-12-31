@@ -12,22 +12,20 @@ namespace DataAccess.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Cv
+    public partial class SSII
     {
-        public Cv()
+        public SSII()
         {
-            this.CompetenceGenerales = new HashSet<CompetenceGenerale>();
-            this.Formations = new HashSet<Formation>();
             this.Missions = new HashSet<Mission>();
         }
     
         public int Id { get; set; }
         public string Nom { get; set; }
-        public string Prenom { get; set; }
-        public string Titre { get; set; }
+        public string Adresse { get; set; }
+        public string CodePostal { get; set; }
+        public string Ville { get; set; }
+        public string SiteWeb { get; set; }
     
-        public virtual ICollection<CompetenceGenerale> CompetenceGenerales { get; set; }
-        public virtual ICollection<Formation> Formations { get; set; }
         public virtual ICollection<Mission> Missions { get; set; }
     }
 }

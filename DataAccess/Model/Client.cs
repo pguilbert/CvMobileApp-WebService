@@ -12,22 +12,18 @@ namespace DataAccess.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Cv
+    public partial class Client
     {
-        public Cv()
+        public Client()
         {
-            this.CompetenceGenerales = new HashSet<CompetenceGenerale>();
-            this.Formations = new HashSet<Formation>();
             this.Missions = new HashSet<Mission>();
         }
     
         public int Id { get; set; }
         public string Nom { get; set; }
-        public string Prenom { get; set; }
-        public string Titre { get; set; }
+        public string SiteWeb { get; set; }
+        public string Ville { get; set; }
     
-        public virtual ICollection<CompetenceGenerale> CompetenceGenerales { get; set; }
-        public virtual ICollection<Formation> Formations { get; set; }
         public virtual ICollection<Mission> Missions { get; set; }
     }
 }

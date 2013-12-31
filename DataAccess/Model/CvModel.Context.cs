@@ -26,5 +26,10 @@ namespace DataAccess.Model
         }
     
         public virtual DbSet<Cv> Cvs { get; set; }
+        public virtual DbSet<CompetenceGenerale> CompetencesGenerales { get; set; }
+        public virtual DbSet<Formation> Formations { get; set; }
+        public virtual DbSet<Mission> Missions { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<SSII> SSIIs { get; set; }
     }
 }
